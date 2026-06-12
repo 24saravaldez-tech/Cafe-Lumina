@@ -187,7 +187,7 @@ botonAgregar.forEach(btn => {
 
             setTimeout(() => {
                 alerta.classList.add('d-none')
-            }, 2000)
+            }, 3000)
 
             renderizar()
 
@@ -214,8 +214,6 @@ botonAgregar.forEach(btn => {
 
 function renderizar() {
 
- //   if (!controlPedidos.includes(productoPedido.nombre)) {
-
         html += ` <div class="cart-item mb-3 p-3 rounded">
                             <div class="d-flex justify-content-between align-items-start mb-2">
                                 <span class="fw-bold small-title nombre">${productoPedido.nombre}</span>
@@ -232,8 +230,6 @@ function renderizar() {
                             </div>
                         </div>`
         contenedorCardsPedido.innerHTML = html
- //   }
-
 }
 
 
@@ -245,5 +241,6 @@ contenedorCardsPedido.addEventListener('click', (event) => {
     } else if (event.target.classList.contains('menos')) {
         productoPedido.disminuir()
     }
+
     renderizar()
 })
