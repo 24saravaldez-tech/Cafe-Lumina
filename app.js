@@ -189,7 +189,7 @@ botonAgregar.forEach(btn => {
                 alerta.classList.add('d-none')
             }, 3000)
 
-            renderizar()
+            renderizar(controlPedidos)
 
 
         } else {
@@ -212,16 +212,16 @@ botonAgregar.forEach(btn => {
 
 
 
-function renderizar() {
-
-        html += ` <div class="cart-item mb-3 p-3 rounded">
+function renderizar(controlDePedidos) {
+    
+    html = ` <div class="cart-item mb-3 p-3 rounded">
                             <div class="d-flex justify-content-between align-items-start mb-2">
                                 <span class="fw-bold small-title nombre">${productoPedido.nombre}</span>
                                 <button class="btn btn-sm btn-outline-danger btn-delete">✕</button>
                             </div>
                             <div class="d-flex justify-content-between align-items-center small text-muted mb-2 precio">
                                 <span>Precio: Q${productoPedido.precio.toFixed(2)}</span>
-                                <span class="fw-bold color-accent">Subtotal: Q36.00</span>
+                                <span class="fw-bold color-accent">Subtotal: ${productoPedido.subtotal().toFixed(2)}</span>
                             </div>
                             <div class="d-flex align-items-center">
                                 <button class="btn btn-sm btn-qty menos">-</button>
@@ -229,7 +229,8 @@ function renderizar() {
                                 <button class="btn btn-sm btn-qty mas" data-id=${productoPedido.orden}>+</button>
                             </div>
                         </div>`
-        contenedorCardsPedido.innerHTML = html
+
+    contenedorCardsPedido.innerHTML = html
 }
 
 
@@ -238,9 +239,9 @@ contenedorCardsPedido.addEventListener('click', (event) => {
 
     if (event.target.classList.contains('mas')) {
         productoPedido.aumentar()
+        renderizar(controlPedidos)
     } else if (event.target.classList.contains('menos')) {
         productoPedido.disminuir()
+        renderizar(controlPedidos)
     }
-
-    renderizar()
 })
