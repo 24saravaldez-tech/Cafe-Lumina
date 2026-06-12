@@ -1,0 +1,224 @@
+/* Paleta de colores minimalista y elegante (Temática Café) */
+:root {
+    --bg-cream: #FCFAF8;
+    --coffee-dark: #3E2723;
+    --coffee-medium: #795548;
+    --coffee-light: #D7CCC8;
+    --accent-peach: #E29578;
+    --white: #FFFFFF;
+    --overlay-dark: rgba(43, 27, 23, 0.65); /* Filtro estético para la imagen */
+}
+
+body {
+    background-color: var(--bg-cream);
+    font-family: 'Nunito', sans-serif;
+    color: var(--coffee-dark);
+}
+
+/* ESTILOS DEL ENCABEZADO (HERO SECTION) */
+.hero-header {
+    height: 55vh; /* Altura generosa y proporcional */
+    width: 100%;
+    /* Reemplaza 'tu-imagen-aqui.jpg' por la ruta de tu imagen cuando la tengas */
+    background: linear-gradient(var(--overlay-dark), var(--overlay-dark)), 
+                url(./coffeeShop.webp) no-repeat center center;
+    background-size: cover;
+    color: var(--white);
+    position: relative;
+    box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.hero-content {
+    max-width: 600px;
+    padding: 0 20px;
+}
+
+.hero-subtitle {
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    color: var(--coffee-light);
+    font-weight: 700;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    letter-spacing: -1px;
+}
+
+.hero-divider {
+    width: 60px;
+    height: 2px;
+    background-color: var(--accent-peach);
+    margin: 0 auto;
+}
+
+.hero-slogan {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--bg-cream);
+    opacity: 0.9;
+}
+
+/* TITULARES INTERNOS */
+.title-cafe {
+    color: var(--coffee-dark);
+    font-family: 'Playfair Display', serif;
+}
+
+/* BUSCADOR */
+.search-bar .form-control {
+    border: 1px solid var(--coffee-light);
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+}
+.search-bar .form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(121, 85, 72, 0.15);
+    border-color: var(--coffee-medium);
+}
+
+/* NAVEGACIÓN Y FILTROS */
+.filters-nav .btn-filter {
+    background-color: transparent;
+    color: var(--coffee-medium);
+    border: 1px solid var(--coffee-light);
+    border-radius: 20px;
+    padding: 0.4rem 1.2rem;
+    margin-right: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.filters-nav .btn-filter:hover, 
+.filters-nav .btn-filter.active {
+    background-color: var(--coffee-medium);
+    color: var(--white);
+    border-color: var(--coffee-medium);
+}
+
+/* TARJETAS DE PRODUCTO */
+.product-card {
+    border: none;
+    border-radius: 16px;
+    background-color: var(--white);
+    box-shadow: 0 4px 15px rgba(62, 39, 35, 0.03);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(62, 39, 35, 0.08);
+}
+
+.category-badge {
+    background-color: var(--bg-cream);
+    color: var(--accent-peach);
+    font-weight: 700;
+    font-size: 1rem;
+    border: 1px solid rgba(226, 149, 120, 0.25);
+}
+
+.price-tag {
+    color: var(--coffee-medium);
+}
+
+.btn-add {
+    background-color: var(--bg-cream);
+    color: var(--coffee-dark);
+    border: 1px solid var(--coffee-light);
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.btn-add:hover {
+    background-color: var(--accent-peach);
+    color: var(--white);
+    border-color: var(--accent-peach);
+}
+
+/* SECCIÓN DEL PEDIDO (CARRITO STICKY) */
+.cart-container {
+    background-color: var(--white);
+    border-radius: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    border: 2px dashed var(--coffee-light);
+    /* Hace que el carrito se quede fijo en pantalla al hacer scroll */
+    position: -webkit-sticky;
+    position: sticky;
+    top: 24px; 
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Personalización de barra de scroll interna del carrito */
+.cart-container::-webkit-scrollbar {
+    width: 5px;
+}
+.cart-container::-webkit-scrollbar-thumb {
+    background-color: var(--coffee-light);
+    border-radius: 10px;
+}
+
+.cart-item {
+    background-color: var(--bg-cream);
+    border: 1px solid rgba(215, 204, 200, 0.5);
+}
+
+.color-accent {
+    color: var(--accent-peach);
+}
+
+.btn-qty {
+    background-color: var(--white);
+    border: 1px solid var(--coffee-light);
+    color: var(--coffee-dark);
+    border-radius: 8px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+.btn-qty:hover {
+    background-color: var(--coffee-light);
+}
+
+.btn-delete {
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+}
+
+/* BOTONES FINALES */
+.btn-checkout {
+    background-color: var(--coffee-dark);
+    color: var(--white);
+    border: none;
+}
+.btn-checkout:hover {
+    background-color: var(--coffee-medium);
+    color: var(--white);
+}
+
+.btn-empty {
+    color: var(--coffee-medium);
+    border-color: var(--coffee-light);
+}
+.btn-empty:hover {
+    background-color: #FFF5F5;
+    color: #D32F2F;
+    border-color: #F8D7DA;
+}
+
+.btn-agregar-carrito{
+    background-color: #3E2723;
+    color: white;
+}
