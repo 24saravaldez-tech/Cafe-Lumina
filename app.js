@@ -1,5 +1,4 @@
-//Seccion pedido
-//===============
+//=========================================
 
 class Producto {
     #nombre;
@@ -71,7 +70,7 @@ class Producto {
 
 }
 
-//Seccion de Productos individuales
+//=========================================
 
 class Productoss {
     #name;
@@ -131,7 +130,7 @@ class Productoss {
 }
 
 
-//Seccion de carrito porque no me queda de otra
+//=========================================
 class Carrito {
     #pedidos;
 
@@ -166,7 +165,7 @@ class Carrito {
 }
 
 
-//Nuevas instancias
+//==========================================
 const productosCafeteria = [
     new Productoss("Café Americano", 1, "Bebida caliente", 12.00, 1),
     new Productoss("Café Latte", 1, "Bebida caliente", 18.00, 2),
@@ -186,7 +185,7 @@ const productosCafeteria = [
 ];
 
 
-//Variables
+//============================================================
 let contenedorCardsPedido = document.querySelector('.contenedorCardsPedido')
 let botonAgregar = document.querySelectorAll('.btn-agregar-carrito')
 let alerta = document.querySelector('#respuesta')
@@ -222,7 +221,7 @@ let controlPedidos = []
 let producto;
 
 
-//Nueva instancia de carrito
+//===============================================================
 let carritoInterno = new Carrito(controlPedidos);
 
 finalizarPedido.disabled = true
