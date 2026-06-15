@@ -32,59 +32,26 @@
                     <h4 class="fw-bold mb-4 text-center title-cafe">Tu Pedido</h4>
 
                     <div class="cart-items-container flex-grow-1 mb-3 contenedorCardsPedido">
-                        <div class="cart-item mb-3 p-3 rounded">
-                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                <span class="fw-bold small-title">Café Latte</span>
-                                <button class="btn btn-sm btn-outline-danger btn-delete">✕</button>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center small text-muted mb-2">
-                                <span>Precio: Q18.00</span>
-                                <span class="fw-bold color-accent">Subtotal: Q36.00</span>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <button class="btn btn-sm btn-qty menos">-</button>
-                                <span class="mx-3 fw-bold">2</span>
-                                <button class="btn btn-sm btn-qty mas">+</button>
-                            </div>
-                        </div>
-
-
-                        <!-- <div class="cart-item mb-3 p-3 rounded">
-                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                <span class="fw-bold small-title">Café Latte</span>
-                                <button class="btn btn-sm btn-outline-danger btn-delete">✕</button>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center small text-muted mb-2">
-                                <span>Precio: Q18.00</span>
-                                <span class="fw-bold color-accent">Subtotal: Q36.00</span>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <button class="btn btn-sm btn-qty">-</button>
-                                <span class="mx-3 fw-bold">2</span>
-                                <button class="btn btn-sm btn-qty">+</button>
-                            </div>
-                        </div> -->
-
 
                     </div>
 
                     <div class="totals-section border-top pt-3">
                         <div class="d-flex justify-content-between mb-1 small text-muted">
-                            <span>Subtotal:</span>
-                            <span>Q80.00</span>
+                            <span id="subtotal-total">Subtotal:</span>
+                            <span id="cantidad-subtotal"></span>
                         </div>
                         <div class="d-flex justify-content-between mb-2 small text-muted">
-                            <span>Impuesto/Recargo:</span>
-                            <span>Q4.00</span>
+                            <span id="impuesto">Impuesto/Recargo:</span>
+                            <span id="cantidad-impuesto"></span>
                         </div>
                         <div class="d-flex justify-content-between mb-3 mt-2 border-top pt-2">
-                            <span class="fw-bold fs-5">Total Final:</span>
-                            <span class="fw-bold fs-5 price-tag">Q84.00</span>
+                            <span class="fw-bold fs-5" id="total-final">Total Final:</span>
+                            <span class="fw-bold fs-5 price-tag" id="cantidad-total">Q84.00</span>
                         </div>
 
                         <div class="d-grid gap-2">
-                            <button class="btn btn-checkout rounded-pill py-2 fw-bold">Finalizar Pedido</button>
-                            <button class="btn btn-outline-secondary rounded-pill py-2 btn-empty">Vaciar Pedido</button>
+                            <button class="btn btn-checkout rounded-pill py-2 fw-bold" id="boton-finalizar-compra">Finalizar Pedido</button>
+                            <button class="btn btn-outline-secondary rounded-pill py-2 btn-empty" id="vaciar-pedido">Vaciar Pedido</button>
                         </div>
                     </div>
                 </div>

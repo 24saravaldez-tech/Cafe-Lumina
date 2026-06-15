@@ -68,8 +68,8 @@ class Producto {
     subtotal() {
         return this.#precio * this.#cantidad
     }
-}
 
+}
 
 //Seccion de Productos individuales
 
@@ -131,6 +131,41 @@ class Productoss {
 }
 
 
+//Seccion de carrito porque no me queda de otra
+class Carrito {
+    #pedidos;
+
+    constructor(pedidos) {
+        this.#pedidos = pedidos;
+    }
+
+    calcularSubtotalTotal() {
+        let total = 0
+        this.#pedidos.forEach(producto => {
+            total += producto.subtotal()
+        })
+        return total;
+    }
+
+    impuesto() {
+        let recargo = 0
+        this.#pedidos.forEach(producto => {
+            recargo = this.calcularSubtotalTotal() * 0.05
+        })
+        return recargo
+    }
+
+    totalTotal() {
+        let totalTotal = 0
+        this.#pedidos.forEach(producto => {
+            totalTotal = this.calcularSubtotalTotal() - this.impuesto()
+        })
+
+        return totalTotal
+    }
+}
+
+
 
 const productosCafeteria = [
     new Productoss("Café Americano", 1, "Bebida caliente", 12.00, 1),
@@ -160,27 +195,40 @@ let alerta = document.querySelector('#respuesta')
 let menos = document.querySelectorAll('.menos')
 let mas = document.querySelectorAll('.mas')
 
+let subtotalCantidad = document.querySelector('#cantidad-subtotal')
+let cantidadImpuesto = document.querySelector('#cantidad-impuesto')
+let cantidadTotal = document.querySelector('#cantidad-total')
+
+let botonVaciar = document.querySelector('#vaciar-pedido')
+let finalizarPedido = document.querySelector('#boton-finalizar-compra')
+
 let controlPedidos = []
 
-let pedidoCliente;
 let producto;
 //let html = '';
 
+//let subtotalTotal = 0
 
+
+let carritoInterno = new Carrito(controlPedidos);
 
 botonAgregar.forEach(btn => {
     btn.addEventListener('click', (event) => {
 
-        let productoPedido = productosCafeteria.find(item => item.id == event.target.id)
+        let pedidoCliente = productosCafeteria.find(item => item.id == event.target.id)
 
-        let incluye = controlPedidos.find(item => item.orden == productoPedido.id)
+        let incluye = controlPedidos.find(item => item.orden == pedidoCliente.id)
 
-        let nuevoProducto = new Producto(productoPedido.name, productoPedido.price, productoPedido.count, productoPedido.id)
+        let nuevoProducto = new Producto(pedidoCliente.name, pedidoCliente.price, pedidoCliente.count, pedidoCliente.id)
+        //    carritoInterno = new Carrito(pedidoCliente.price * pedidoCliente.count)
+        // console.log(carritoInterno.subtotal())
 
 
         if (!incluye) {
 
             controlPedidos.push(nuevoProducto)
+
+            //  console.log('yo soy sumas', sumas)
             alerta.classList.remove('d-none', 'alert-danger')
             alerta.classList.add('alert-success')
             alerta.textContent = 'Producto agregado';
@@ -193,45 +241,16 @@ botonAgregar.forEach(btn => {
 
         } else if (incluye) {
 
-            console.log('afdjfja')
-
-            // nuevoProducto.cantidad = nuevoProducto.cantidad + 1
-
             let idABuscar = event.target.getAttribute('id')
-            console.log(idABuscar)
 
             let productoSeleccionado = controlPedidos.find(item => item.orden == idABuscar)
-            console.log(productoSeleccionado)
 
-            console.log(controlPedidos)
-
-            // let control = controlPedidos.filter(item => item.orden == idABuscar)
-            // control = control.sort((a, b) => b[2] - a[2])
-
-
-            // controlPedidos = controlPedidos.filter(item => item.orden != idABuscar)
-           // console.log('yo soy la falla', control)
-
-
-            console.log(controlPedidos)
             productoSeleccionado.aumentar()
 
             renderizar()
-
-
-            //   renderizar()
-
-            // alerta.classList.remove('d-none', 'alert-success');
-            // alerta.classList.add('alert-danger');
-            // alerta.textContent = 'El producto ya está añadido. Usa los botones "+" o "-" en tu cesta.';
-
-            // setTimeout(() =>
-            //     alerta.classList.add('d-none'), 3000);
-
         }
     });
 });
-
 
 
 function renderizar() {
@@ -242,19 +261,23 @@ function renderizar() {
         html += ` <div class="cart-item mb-3 p-3 rounded">
                             <div class="d-flex justify-content-between align-items-start mb-2">
                                 <span class="fw-bold small-title nombre">${producto.nombre}</span>
-                                <button class="btn btn-sm btn-outline-danger btn-delete">✕</button>
+                                <button class="btn btn-sm btn-outline-danger btn-delete" data-id=${producto.orden}>✕</button>
                             </div>
                             <div class="d-flex justify-content-between align-items-center small text-muted mb-2 precio">
                                 <span>Precio: Q${producto.precio.toFixed(2)}</span>
                                 <span class="fw-bold color-accent">Subtotal: ${producto.subtotal().toFixed(2)}</span>
                             </div>
                             <div class="d-flex align-items-center">
-                                <button class="btn btn-sm btn-qty menos">-</button>
+                                <button class="btn btn-sm btn-qty menos" data-id=${producto.orden}>-</button>
                                 <span class="mx-3 fw-bold cantidad">${producto.cantidad}</span>
                                 <button class="btn btn-sm btn-qty mas" data-id=${producto.orden}>+</button>
                             </div>
                         </div>`
     })
+
+    subtotalCantidad.textContent = `Q${carritoInterno.calcularSubtotalTotal().toFixed(2)}`
+    cantidadImpuesto.textContent = `Q${carritoInterno.impuesto().toFixed(2)}`
+    cantidadTotal.textContent = `Q${carritoInterno.totalTotal().toFixed(2)}`
 
     contenedorCardsPedido.innerHTML = html
 }
@@ -262,16 +285,22 @@ function renderizar() {
 contenedorCardsPedido.addEventListener('click', (event) => {
     let idABuscar = event.target.getAttribute('data-id');
 
-    let productoSeleccionado = controlPedidos.find(item => item.orden == idABuscar);
+    let productoSeleccionado = controlPedidos.find(item => item.orden == idABuscar)
 
     if (event.target.classList.contains('mas')) {
         productoSeleccionado.aumentar()
         renderizar()
+
     } else if (event.target.classList.contains('menos')) {
         productoSeleccionado.disminuir();
         renderizar()
+
     } else if (event.target.classList.contains('btn-delete')) {
-        controlPedidos = controlPedidos.filter(item => item.orden != idABuscar);
+        controlPedidos = controlPedidos.filter(item => item.orden != idABuscar)
         renderizar()
     }
+
+    carritoInterno = new Carrito(controlPedidos);
+    renderizar()
 });
+
