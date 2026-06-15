@@ -418,3 +418,30 @@ todasLasCategorias.addEventListener('click', (event) => {
         producto.classList.remove('d-none')
     })
 })
+
+
+let tarjetasPorNombre = document.querySelectorAll('.nombre')
+
+
+barraDeBusqueda.addEventListener('keyup', (event) => {
+    let usuario = event.target.value.toLowerCase()
+    Busqueda(usuario)
+})
+
+function Busqueda(usuario) {
+
+    tarjetasPorNombre.forEach((tarjeta) => {
+
+        if (tarjeta) {
+
+            let nombreProducto = tarjeta.textContent.toLowerCase()
+
+            if (nombreProducto.includes(usuario)) {
+                tarjeta.parentElement.parentElement.classList.remove('d-none')
+            } else {
+
+                tarjeta.parentElement.parentElement.classList.add('d-none')
+            }
+        }
+    });
+}
