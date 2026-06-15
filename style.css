@@ -222,3 +222,39 @@ body {
     background-color: #3E2723;
     color: white;
 }
+
+/* ========================================== */
+/* ESTILOS PERSONALIZADOS PARA LA FACTURA     */
+/* ========================================== */
+
+/* Estilo general de la tarjeta de la factura */
+.invoice-card {
+    border: none;
+    border-radius: 24px;
+    background-color: var(--white);
+    box-shadow: 0 15px 35px rgba(62, 39, 35, 0.2);
+}
+
+/* Círculo contenedor del Check verde superior */
+.check-container {
+    width: 65px;
+    height: 65px;
+    background-color: #E8F5E9; /* Verde pastel suave */
+    color: #2E7D32;            /* Verde oscuro elegante */
+    border-radius: 50%;
+    font-size: 1.8rem;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(46, 125, 50, 0.1);
+}
+
+/* Líneas discontinuas simulando el corte de un ticket físico */
+.invoice-body {
+    border-top: 2px dashed var(--coffee-light) !important;
+    border-bottom: 2px dashed var(--coffee-light) !important;
+}
+
+/* Oscurece de forma más profunda e ideal el fondo cuando se abre el modal */
+.modal-backdrop {
+    background-color: var(--coffee-dark) !important;
+    opacity: 0.75 !important;
+}

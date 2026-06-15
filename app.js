@@ -158,7 +158,7 @@ class Carrito {
     totalTotal() {
         let totalTotal = 0
         this.#pedidos.forEach(producto => {
-            totalTotal = this.calcularSubtotalTotal() - this.impuesto()
+            totalTotal = this.calcularSubtotalTotal() + this.impuesto()
         })
 
         return totalTotal
@@ -201,14 +201,14 @@ let cantidadTotal = document.querySelector('#cantidad-total')
 
 let botonVaciar = document.querySelector('#vaciar-pedido')
 let finalizarPedido = document.querySelector('#boton-finalizar-compra')
+let facturaCompleta = document.querySelector('#lista-productos-factura')
+let facturaTotales = document.querySelector('#factura-total-final')
+let facturaImpuestos = document.querySelector('#factura-impuesto-final')
+let facturaproductos = document.querySelector('#factura-productos-final')
 
 let controlPedidos = []
 
 let producto;
-//let html = '';
-
-//let subtotalTotal = 0
-
 
 let carritoInterno = new Carrito(controlPedidos);
 
@@ -220,15 +220,10 @@ botonAgregar.forEach(btn => {
         let incluye = controlPedidos.find(item => item.orden == pedidoCliente.id)
 
         let nuevoProducto = new Producto(pedidoCliente.name, pedidoCliente.price, pedidoCliente.count, pedidoCliente.id)
-        //    carritoInterno = new Carrito(pedidoCliente.price * pedidoCliente.count)
-        // console.log(carritoInterno.subtotal())
-
-
         if (!incluye) {
 
             controlPedidos.push(nuevoProducto)
 
-            //  console.log('yo soy sumas', sumas)
             alerta.classList.remove('d-none', 'alert-danger')
             alerta.classList.add('alert-success')
             alerta.textContent = 'Producto agregado';
@@ -242,9 +237,7 @@ botonAgregar.forEach(btn => {
         } else if (incluye) {
 
             let idABuscar = event.target.getAttribute('id')
-
             let productoSeleccionado = controlPedidos.find(item => item.orden == idABuscar)
-
             productoSeleccionado.aumentar()
 
             renderizar()
@@ -275,6 +268,8 @@ function renderizar() {
                         </div>`
     })
 
+    Factura()
+
     subtotalCantidad.textContent = `Q${carritoInterno.calcularSubtotalTotal().toFixed(2)}`
     cantidadImpuesto.textContent = `Q${carritoInterno.impuesto().toFixed(2)}`
     cantidadTotal.textContent = `Q${carritoInterno.totalTotal().toFixed(2)}`
@@ -292,8 +287,13 @@ contenedorCardsPedido.addEventListener('click', (event) => {
         renderizar()
 
     } else if (event.target.classList.contains('menos')) {
-        productoSeleccionado.disminuir();
-        renderizar()
+        if (productoSeleccionado.cantidad == 1) {
+            controlPedidos = controlPedidos.filter(item => item.orden != idABuscar)
+            renderizar()
+        } else if (productoSeleccionado.cantidad >= 2) {
+            productoSeleccionado.disminuir();
+            renderizar()
+        }
 
     } else if (event.target.classList.contains('btn-delete')) {
         controlPedidos = controlPedidos.filter(item => item.orden != idABuscar)
@@ -303,4 +303,28 @@ contenedorCardsPedido.addEventListener('click', (event) => {
     carritoInterno = new Carrito(controlPedidos);
     renderizar()
 });
+
+botonVaciar.addEventListener('click', (event) => {
+    controlPedidos = []
+    carritoInterno = new Carrito(controlPedidos)
+    renderizar();
+})
+
+function Factura() {
+
+    let html = ''
+
+    controlPedidos.forEach((item) => {
+        html += `    <div class="d-flex justify-content-between small mb-2">
+                            <span>${item.nombre} x ${item.cantidad}</span>
+                            <span class="fw-bold">Q${item.subtotal().toFixed(2)}</span>
+                     </div>`
+    })
+
+    facturaproductos.textContent = `Q${carritoInterno.calcularSubtotalTotal().toFixed(2)}`
+    facturaImpuestos.textContent = `Q${carritoInterno.impuesto().toFixed(2)}`
+    facturaTotales.textContent = `Q${carritoInterno.totalTotal().toFixed(2)}`
+
+    facturaCompleta.innerHTML = html
+}
 

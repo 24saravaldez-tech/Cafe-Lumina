@@ -38,20 +38,23 @@
                     <div class="totals-section border-top pt-3">
                         <div class="d-flex justify-content-between mb-1 small text-muted">
                             <span id="subtotal-total">Subtotal:</span>
-                            <span id="cantidad-subtotal"></span>
+                            <span id="cantidad-subtotal">Q0.00</span>
                         </div>
                         <div class="d-flex justify-content-between mb-2 small text-muted">
                             <span id="impuesto">Impuesto/Recargo:</span>
-                            <span id="cantidad-impuesto"></span>
+                            <span id="cantidad-impuesto">Q0.00</span>
                         </div>
                         <div class="d-flex justify-content-between mb-3 mt-2 border-top pt-2">
                             <span class="fw-bold fs-5" id="total-final">Total Final:</span>
-                            <span class="fw-bold fs-5 price-tag" id="cantidad-total">Q84.00</span>
+                            <span class="fw-bold fs-5 price-tag" id="cantidad-total">Q0.00</span>
+
                         </div>
 
                         <div class="d-grid gap-2">
-                            <button class="btn btn-checkout rounded-pill py-2 fw-bold" id="boton-finalizar-compra">Finalizar Pedido</button>
-                            <button class="btn btn-outline-secondary rounded-pill py-2 btn-empty" id="vaciar-pedido">Vaciar Pedido</button>
+                            <button class="btn btn-checkout rounded-pill py-2 fw-bold" id="boton-finalizar-compra"
+                                data-bs-toggle="modal" data-bs-target="#modalFactura">Finalizar Pedido</button>
+                            <button class="btn btn-outline-secondary rounded-pill py-2 btn-empty"
+                                id="vaciar-pedido">Vaciar Pedido</button>
                         </div>
                     </div>
                 </div>
@@ -61,16 +64,16 @@
                 <header class="mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
                     <h2 class="fw-bold title-cafe m-0">Nuestro Menú</h2>
                     <div class="search-bar">
-                        <input type="text" class="form-control rounded-pill" placeholder="Buscar producto...">
+                        <input type="text" class="form-control rounded-pill" placeholder="Buscar producto..." id="buscador">
                     </div>
                 </header>
 
                 <nav class="mb-4 filters-nav">
-                    <button class="btn btn-filter active">Todas</button>
-                    <button class="btn btn-filter">Bebidas calientes</button>
-                    <button class="btn btn-filter">Bebidas frías</button>
-                    <button class="btn btn-filter">Postres</button>
-                    <button class="btn btn-filter">Comida</button>
+                    <button class="btn btn-filter active" id="todas">Todas</button>
+                    <button class="btn btn-filter" id="bebidas-calientes">Bebidas calientes</button>
+                    <button class="btn btn-filter" id="bebidas-frias">Bebidas frías</button>
+                    <button class="btn btn-filter" id="postres">Postres</button>
+                    <button class="btn btn-filter" id="comidas">Comida</button>
                 </nav>
 
                 <div id="respuesta" class="alert alert-success d-none mb-4 show fade" role="alert"></div>
@@ -88,7 +91,7 @@
                                 <div class="d-flex justify-content-between align-items-center mt-3">
                                     <span class="price-tag fw-bold fs-5 precio">Q12.00</span>
                                     <button class="btn btn-add rounded-pill px-3 btn-agregar-carrito"
-                                       id="1">Agregar</button>
+                                        id="1">Agregar</button>
                                 </div>
                             </div>
                         </div>
@@ -324,6 +327,56 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalFactura" tabindex="-1" aria-labelledby="modalFacturaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content invoice-card p-4">
+
+                <div class="text-center mb-4">
+                    <div class="check-container d-inline-flex align-items-center justify-content-center mb-3">
+                        <span>✓</span>
+                    </div>
+                    <h4 class="fw-bold title-cafe m-0">Pedido Finalizado</h4>
+                    <p class="text-muted small mb-0">Café Lumina — Comprobante de Pago</p>
+                </div>
+
+                <div class="invoice-body py-3 mb-3">
+                    <h6 class="fw-bold text-uppercase tracking-wider small text-muted mb-3">Productos</h6>
+
+                    <div id="lista-productos-factura">
+                    </div>
+                </div>
+
+                <div class="invoice-totals mb-4">
+
+                    <div class="d-flex justify-content-between border-top pt-3 mt-2">
+                        <span class="fw-bold fs-6 text-dark">Subtotal(productos):</span>
+                        <span class="fw-bold fs-5 price-tag" id="factura-productos-final"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between border-top pt-3 mt-2">
+                        <span class="fw-bold fs-6 text-dark">Impuesto/Recargo:</span>
+                        <span class="fw-bold fs-5 price-tag" id="factura-impuesto-final"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between border-top pt-3 mt-2">
+                        <span class="fw-bold fs-5 text-dark">Total Pagado:</span>
+                        <span class="fw-bold fs-5 price-tag" id="factura-total-final">/span>
+                    </div>
+                </div>
+
+                <div class="text-center mb-4">
+                    <p class="fst-italic small title-cafe m-0">Gracias por tu compra.</p>
+                </div>
+
+                <div class="d-grid">
+                    <button type="button" class="btn btn-checkout rounded-pill py-2 fw-bold"
+                        data-bs-dismiss="modal">Aceptar</button>
+                </div>
+
+            </div>
         </div>
     </div>
 
