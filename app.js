@@ -71,6 +71,8 @@ class Producto {
 }
 
 
+//Seccion de Productos individuales
+
 class Productoss {
     #name;
     #count;
@@ -161,87 +163,115 @@ let mas = document.querySelectorAll('.mas')
 let controlPedidos = []
 
 let pedidoCliente;
-let productoPedido;
-let html = '';
+let producto;
+//let html = '';
+
 
 
 botonAgregar.forEach(btn => {
-
-
     btn.addEventListener('click', (event) => {
-        pedidoCliente = productosCafeteria.find(id => id.id == event.target.id)
-        console.log(pedidoCliente)
 
-        productoPedido = new Producto(pedidoCliente.name, pedidoCliente.price, pedidoCliente.count, pedidoCliente.id)
-        console.log(productoPedido)
+        let productoPedido = productosCafeteria.find(item => item.id == event.target.id)
+
+        let incluye = controlPedidos.find(item => item.orden == productoPedido.id)
+
+        let nuevoProducto = new Producto(productoPedido.name, productoPedido.price, productoPedido.count, productoPedido.id)
 
 
-        if (!controlPedidos.includes(productoPedido.nombre)) {
+        if (!incluye) {
 
-            controlPedidos.push(productoPedido.nombre)
-            alerta.classList.remove('d-none')
-            alerta.classList.remove('alert-danger')
+            controlPedidos.push(nuevoProducto)
+            alerta.classList.remove('d-none', 'alert-danger')
             alerta.classList.add('alert-success')
-
-            alerta.textContent = 'Producto agregado'
-
-            setTimeout(() => {
-                alerta.classList.add('d-none')
-            }, 3000)
-
-            renderizar(controlPedidos)
-
-
-        } else {
-
-            alerta.classList.remove('d-none')
-            alerta.classList.remove('alert-success')
-            alerta.classList.add('alert-danger')
-
-            alerta.textContent = 'El producto ya está añadido a tu cesta. Si quieres aumentar su cantidad, puedes presionar el botono "+" en la sección de Tu Pedido'
+            alerta.textContent = 'Producto agregado';
 
             setTimeout(() => {
                 alerta.classList.add('d-none')
             }, 3000)
+
+            renderizar()
+
+        } else if (incluye) {
+
+            console.log('afdjfja')
+
+            // nuevoProducto.cantidad = nuevoProducto.cantidad + 1
+
+            let idABuscar = event.target.getAttribute('id')
+            console.log(idABuscar)
+
+            let productoSeleccionado = controlPedidos.find(item => item.orden == idABuscar)
+            console.log(productoSeleccionado)
+
+            console.log(controlPedidos)
+
+            // let control = controlPedidos.filter(item => item.orden == idABuscar)
+            // control = control.sort((a, b) => b[2] - a[2])
+
+
+            // controlPedidos = controlPedidos.filter(item => item.orden != idABuscar)
+           // console.log('yo soy la falla', control)
+
+
+            console.log(controlPedidos)
+            productoSeleccionado.aumentar()
+
+            renderizar()
+
+
+            //   renderizar()
+
+            // alerta.classList.remove('d-none', 'alert-success');
+            // alerta.classList.add('alert-danger');
+            // alerta.textContent = 'El producto ya está añadido. Usa los botones "+" o "-" en tu cesta.';
+
+            // setTimeout(() =>
+            //     alerta.classList.add('d-none'), 3000);
+
         }
-
-    })
-
-})
+    });
+});
 
 
 
+function renderizar() {
 
-function renderizar(controlDePedidos) {
-    
-    html = ` <div class="cart-item mb-3 p-3 rounded">
+    let html = ''
+
+    controlPedidos.forEach((producto) => {
+        html += ` <div class="cart-item mb-3 p-3 rounded">
                             <div class="d-flex justify-content-between align-items-start mb-2">
-                                <span class="fw-bold small-title nombre">${productoPedido.nombre}</span>
+                                <span class="fw-bold small-title nombre">${producto.nombre}</span>
                                 <button class="btn btn-sm btn-outline-danger btn-delete">✕</button>
                             </div>
                             <div class="d-flex justify-content-between align-items-center small text-muted mb-2 precio">
-                                <span>Precio: Q${productoPedido.precio.toFixed(2)}</span>
-                                <span class="fw-bold color-accent">Subtotal: ${productoPedido.subtotal().toFixed(2)}</span>
+                                <span>Precio: Q${producto.precio.toFixed(2)}</span>
+                                <span class="fw-bold color-accent">Subtotal: ${producto.subtotal().toFixed(2)}</span>
                             </div>
                             <div class="d-flex align-items-center">
                                 <button class="btn btn-sm btn-qty menos">-</button>
-                                <span class="mx-3 fw-bold cantidad">${productoPedido.cantidad}</span>
-                                <button class="btn btn-sm btn-qty mas" data-id=${productoPedido.orden}>+</button>
+                                <span class="mx-3 fw-bold cantidad">${producto.cantidad}</span>
+                                <button class="btn btn-sm btn-qty mas" data-id=${producto.orden}>+</button>
                             </div>
                         </div>`
+    })
 
     contenedorCardsPedido.innerHTML = html
 }
 
-
 contenedorCardsPedido.addEventListener('click', (event) => {
-    let orden = controlPedidos.find(item => item.id == event.target.getAttribute('data-id'))
+    let idABuscar = event.target.getAttribute('data-id');
+
+    let productoSeleccionado = controlPedidos.find(item => item.orden == idABuscar);
 
     if (event.target.classList.contains('mas')) {
-        productoPedido.aumentar()
-        renderizar(controlPedidos)
+        productoSeleccionado.aumentar()
+        renderizar()
     } else if (event.target.classList.contains('menos')) {
-        productoPedido.disminuir()
-        renderizar(controlPedidos)
+        productoSeleccionado.disminuir();
+        renderizar()
+    } else if (event.target.classList.contains('btn-delete')) {
+        controlPedidos = controlPedidos.filter(item => item.orden != idABuscar);
+        renderizar()
     }
-})
+});
