@@ -212,14 +212,24 @@ let comidas = document.querySelector('#comidas')
 
 let barraDeBusqueda = document.querySelector('#buscador')
 let botonesBusqueda = document.querySelectorAll('.botones-busqueda')
+let botonAceptarFactura = document.querySelector('#boton-aceptar-factura')
+
+let tarjetasDeProductos = document.querySelectorAll('.tarjeta-producto')
+let tarjetasPorNombre = document.querySelectorAll('.nombre')
 
 
 let controlPedidos = []
-
 let producto;
+
 
 //Nueva instancia de carrito
 let carritoInterno = new Carrito(controlPedidos);
+
+finalizarPedido.disabled = true
+botonVaciar.disabled = true
+
+
+//===============================================================
 
 botonAgregar.forEach(btn => {
     btn.addEventListener('click', (event) => {
@@ -254,6 +264,7 @@ botonAgregar.forEach(btn => {
     });
 });
 
+//===============================================================
 
 function renderizar() {
 
@@ -277,6 +288,15 @@ function renderizar() {
                         </div>`
     })
 
+    if (controlPedidos.length <= 0) {
+        finalizarPedido.disabled = true
+        botonVaciar.disabled = true
+    } else {
+        finalizarPedido.disabled = false
+        botonVaciar.disabled = false
+    }
+
+
     Factura()
 
     subtotalCantidad.textContent = `Q${carritoInterno.calcularSubtotalTotal().toFixed(2)}`
@@ -284,7 +304,10 @@ function renderizar() {
     cantidadTotal.textContent = `Q${carritoInterno.totalTotal().toFixed(2)}`
 
     contenedorCardsPedido.innerHTML = html
+
 }
+
+//===============================================================
 
 contenedorCardsPedido.addEventListener('click', (event) => {
     let idABuscar = event.target.getAttribute('data-id');
@@ -296,9 +319,12 @@ contenedorCardsPedido.addEventListener('click', (event) => {
         renderizar()
 
     } else if (event.target.classList.contains('menos')) {
+
         if (productoSeleccionado.cantidad == 1) {
             controlPedidos = controlPedidos.filter(item => item.orden != idABuscar)
+
             renderizar()
+
         } else if (productoSeleccionado.cantidad >= 2) {
             productoSeleccionado.disminuir();
             renderizar()
@@ -313,11 +339,15 @@ contenedorCardsPedido.addEventListener('click', (event) => {
     renderizar()
 });
 
+//===============================================================
+
 botonVaciar.addEventListener('click', (event) => {
     controlPedidos = []
     carritoInterno = new Carrito(controlPedidos)
     renderizar();
 })
+
+//===============================================================
 
 function Factura() {
 
@@ -337,8 +367,7 @@ function Factura() {
     facturaCompleta.innerHTML = html
 }
 
-
-let tarjetasDeProductos = document.querySelectorAll('.tarjeta-producto')
+//===============================================================
 
 bebidasCalientes.addEventListener('click', (event) => {
     botonesBusqueda.forEach(btn => {
@@ -357,6 +386,8 @@ bebidasCalientes.addEventListener('click', (event) => {
     })
 })
 
+//===============================================================
+
 bebidasFrias.addEventListener('click', (event) => {
     botonesBusqueda.forEach(btn => {
         btn.classList.remove('active')
@@ -373,6 +404,8 @@ bebidasFrias.addEventListener('click', (event) => {
         }
     })
 })
+
+//===============================================================
 
 postres.addEventListener('click', (event) => {
     botonesBusqueda.forEach(btn => {
@@ -391,6 +424,8 @@ postres.addEventListener('click', (event) => {
     })
 })
 
+//===============================================================
+
 comidas.addEventListener('click', (event) => {
     botonesBusqueda.forEach(btn => {
         btn.classList.remove('active')
@@ -408,6 +443,8 @@ comidas.addEventListener('click', (event) => {
     })
 })
 
+//===============================================================
+
 todasLasCategorias.addEventListener('click', (event) => {
     botonesBusqueda.forEach(btn => {
         btn.classList.remove('active')
@@ -419,14 +456,14 @@ todasLasCategorias.addEventListener('click', (event) => {
     })
 })
 
-
-let tarjetasPorNombre = document.querySelectorAll('.nombre')
-
+//===============================================================
 
 barraDeBusqueda.addEventListener('keyup', (event) => {
     let usuario = event.target.value.toLowerCase()
     Busqueda(usuario)
 })
+
+//===============================================================
 
 function Busqueda(usuario) {
 
@@ -439,9 +476,16 @@ function Busqueda(usuario) {
             if (nombreProducto.includes(usuario)) {
                 tarjeta.parentElement.parentElement.classList.remove('d-none')
             } else {
-
                 tarjeta.parentElement.parentElement.classList.add('d-none')
             }
         }
     });
 }
+
+//===============================================================
+
+botonAceptarFactura.addEventListener('click', (event) => {
+    controlPedidos = []
+    carritoInterno = new Carrito(controlPedidos)
+    renderizar();
+})

@@ -6,22 +6,25 @@
     --coffee-light: #D7CCC8;
     --accent-peach: #E29578;
     --white: #FFFFFF;
-    --overlay-dark: rgba(43, 27, 23, 0.65); /* Filtro estético para la imagen */
+    --overlay-dark: rgba(43, 27, 23, 0.65);
+    /* Filtro estético para la imagen */
 }
 
 body {
     background-color: var(--bg-cream);
     font-family: 'Nunito', sans-serif;
     color: var(--coffee-dark);
+    background-color: #eeb889;
 }
 
 /* ESTILOS DEL ENCABEZADO (HERO SECTION) */
 .hero-header {
-    height: 55vh; /* Altura generosa y proporcional */
+    height: 55vh;
+    /* Altura generosa y proporcional */
     width: 100%;
     /* Reemplaza 'tu-imagen-aqui.jpg' por la ruta de tu imagen cuando la tengas */
-    background: linear-gradient(var(--overlay-dark), var(--overlay-dark)), 
-                url(./coffeeShop.webp) no-repeat center center;
+    background: linear-gradient(var(--overlay-dark), var(--overlay-dark)),
+        url(./coffeeShop.webp) no-repeat center center;
     background-size: cover;
     color: var(--white);
     position: relative;
@@ -72,6 +75,7 @@ body {
     padding: 0.4rem 1rem;
     font-size: 0.9rem;
 }
+
 .search-bar .form-control:focus {
     box-shadow: 0 0 0 0.25rem rgba(121, 85, 72, 0.15);
     border-color: var(--coffee-medium);
@@ -79,7 +83,7 @@ body {
 
 /* NAVEGACIÓN Y FILTROS */
 .filters-nav .btn-filter {
-    background-color: transparent;
+    background-color: white;
     color: var(--coffee-medium);
     border: 1px solid var(--coffee-light);
     border-radius: 20px;
@@ -90,7 +94,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.filters-nav .btn-filter:hover, 
+.filters-nav .btn-filter:hover,
 .filters-nav .btn-filter.active {
     background-color: var(--coffee-medium);
     color: var(--white);
@@ -142,12 +146,12 @@ body {
 .cart-container {
     background-color: var(--white);
     border-radius: 24px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
     border: 2px dashed var(--coffee-light);
     /* Hace que el carrito se quede fijo en pantalla al hacer scroll */
     position: -webkit-sticky;
     position: sticky;
-    top: 24px; 
+    top: 24px;
     max-height: 90vh;
     overflow-y: auto;
 }
@@ -156,6 +160,7 @@ body {
 .cart-container::-webkit-scrollbar {
     width: 5px;
 }
+
 .cart-container::-webkit-scrollbar-thumb {
     background-color: var(--coffee-light);
     border-radius: 10px;
@@ -182,6 +187,7 @@ body {
     justify-content: center;
     font-weight: bold;
 }
+
 .btn-qty:hover {
     background-color: var(--coffee-light);
 }
@@ -203,6 +209,7 @@ body {
     color: var(--white);
     border: none;
 }
+
 .btn-checkout:hover {
     background-color: var(--coffee-medium);
     color: var(--white);
@@ -212,13 +219,14 @@ body {
     color: var(--coffee-medium);
     border-color: var(--coffee-light);
 }
+
 .btn-empty:hover {
     background-color: #FFF5F5;
     color: #D32F2F;
     border-color: #F8D7DA;
 }
 
-.btn-agregar-carrito{
+.btn-agregar-carrito {
     background-color: #3E2723;
     color: white;
 }
@@ -239,8 +247,10 @@ body {
 .check-container {
     width: 65px;
     height: 65px;
-    background-color: #E8F5E9; /* Verde pastel suave */
-    color: #2E7D32;            /* Verde oscuro elegante */
+    background-color: #E8F5E9;
+    /* Verde pastel suave */
+    color: #2E7D32;
+    /* Verde oscuro elegante */
     border-radius: 50%;
     font-size: 1.8rem;
     font-weight: bold;
@@ -257,4 +267,41 @@ body {
 .modal-backdrop {
     background-color: var(--coffee-dark) !important;
     opacity: 0.75 !important;
+}
+
+/* =================================================== */
+/* AJUSTES DE IMÁGENES SIMÉTRICAS Y BADGES SUPERPUESTOS */
+/* =================================================== */
+
+/* Contenedor relativo para poder posicionar el badge encima */
+.product-image-container {
+    position: relative;
+    width: 100%;
+}
+
+/* Forzar a todas las imágenes a tener exactamente el mismo tamaño */
+.product-card img {
+    width: 100%;
+    height: 200px;
+    /* Ajusta esta altura a tu gusto (ej. 180px o 220px) */
+    object-fit: cover;
+    /* Recorta y escala la imagen sin distorsionarla */
+    border-radius: 12px;
+    /* Esquinas suavizadas estéticas */
+    display: block;
+}
+
+/* Posicionamiento del span (badge) en la esquina superior derecha con margen */
+.product-card .category-badge {
+    position: absolute;
+    top: 12px;
+    /* Margen superior */
+    right: 12px;
+    /* Margen derecho */
+    z-index: 10;
+    /* Asegura que quede por encima de la imagen */
+    margin-bottom: 0 !important;
+    /* Resetea el margen de Bootstrap */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    /* Sombra suave para legibilidad */
 }
