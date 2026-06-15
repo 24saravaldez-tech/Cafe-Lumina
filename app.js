@@ -166,7 +166,7 @@ class Carrito {
 }
 
 
-
+//Nuevas instancias
 const productosCafeteria = [
     new Productoss("Café Americano", 1, "Bebida caliente", 12.00, 1),
     new Productoss("Café Latte", 1, "Bebida caliente", 18.00, 2),
@@ -186,9 +186,7 @@ const productosCafeteria = [
 ];
 
 
-//Seccion totales
-//===============
-
+//Variables
 let contenedorCardsPedido = document.querySelector('.contenedorCardsPedido')
 let botonAgregar = document.querySelectorAll('.btn-agregar-carrito')
 let alerta = document.querySelector('#respuesta')
@@ -206,10 +204,21 @@ let facturaTotales = document.querySelector('#factura-total-final')
 let facturaImpuestos = document.querySelector('#factura-impuesto-final')
 let facturaproductos = document.querySelector('#factura-productos-final')
 
+let todasLasCategorias = document.querySelector('#todas')
+let bebidasCalientes = document.querySelector('#bebidas-calientes')
+let bebidasFrias = document.querySelector('#bebidas-frias')
+let postres = document.querySelector('#postres')
+let comidas = document.querySelector('#comidas')
+
+let barraDeBusqueda = document.querySelector('#buscador')
+let botonesBusqueda = document.querySelectorAll('.botones-busqueda')
+
+
 let controlPedidos = []
 
 let producto;
 
+//Nueva instancia de carrito
 let carritoInterno = new Carrito(controlPedidos);
 
 botonAgregar.forEach(btn => {
@@ -328,3 +337,84 @@ function Factura() {
     facturaCompleta.innerHTML = html
 }
 
+
+let tarjetasDeProductos = document.querySelectorAll('.tarjeta-producto')
+
+bebidasCalientes.addEventListener('click', (event) => {
+    botonesBusqueda.forEach(btn => {
+        btn.classList.remove('active')
+    })
+    event.target.classList.add('active')
+
+    tarjetasDeProductos.forEach(producto => {
+        let busqueda = producto.classList.contains('bebida-caliente')
+        console.log(busqueda)
+        if (busqueda) {
+            producto.classList.remove('d-none')
+        } else {
+            producto.classList.add('d-none')
+        }
+    })
+})
+
+bebidasFrias.addEventListener('click', (event) => {
+    botonesBusqueda.forEach(btn => {
+        btn.classList.remove('active')
+    })
+    event.target.classList.add('active')
+
+    tarjetasDeProductos.forEach(producto => {
+        let busqueda = producto.classList.contains('bebida-fria')
+        console.log(busqueda)
+        if (busqueda) {
+            producto.classList.remove('d-none')
+        } else {
+            producto.classList.add('d-none')
+        }
+    })
+})
+
+postres.addEventListener('click', (event) => {
+    botonesBusqueda.forEach(btn => {
+        btn.classList.remove('active')
+    })
+    event.target.classList.add('active')
+
+    tarjetasDeProductos.forEach(producto => {
+        let busqueda = producto.classList.contains('postre')
+        console.log(busqueda)
+        if (busqueda) {
+            producto.classList.remove('d-none')
+        } else {
+            producto.classList.add('d-none')
+        }
+    })
+})
+
+comidas.addEventListener('click', (event) => {
+    botonesBusqueda.forEach(btn => {
+        btn.classList.remove('active')
+    })
+    event.target.classList.add('active')
+
+    tarjetasDeProductos.forEach(producto => {
+        let busqueda = producto.classList.contains('comida')
+        console.log(busqueda)
+        if (busqueda) {
+            producto.classList.remove('d-none')
+        } else {
+            producto.classList.add('d-none')
+        }
+    })
+})
+
+todasLasCategorias.addEventListener('click', (event) => {
+    botonesBusqueda.forEach(btn => {
+        btn.classList.remove('active')
+    })
+    event.target.classList.add('active')
+
+    tarjetasDeProductos.forEach(producto => {
+        producto.classList.remove('d-none')
+    })
+})
